@@ -297,7 +297,9 @@ html {
 
   .btn,
   .chips span,
-  .card {
+  .card,
+  .nav-links a,
+  .nav-links a::after {
     transition: none;
   }
 
