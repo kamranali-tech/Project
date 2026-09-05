@@ -4,6 +4,16 @@ const navAnchors = document.querySelectorAll('.nav-links a');
 const year = document.getElementById('year');
 const mobileQuery = window.matchMedia('(max-width: 768px)');
 
+const syncToggleA11yState = () => {
+  if (!toggle || !navLinks) {
+    return;
+  }
+
+  const isOpen = navLinks.classList.contains('open');
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+};
+
 const syncNavigationA11yState = () => {
   if (!navLinks) {
     return;
@@ -20,7 +30,7 @@ if (year) {
 if (toggle && navLinks) {
   toggle.addEventListener('click', () => {
     navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(navLinks.classList.contains('open')));
+    syncToggleA11yState();
     syncNavigationA11yState();
   });
 }
@@ -30,23 +40,20 @@ if (navLinks) {
     link.addEventListener('click', () => {
       if (navLinks.classList.contains('open')) {
         navLinks.classList.remove('open');
-        if (toggle) {
-          toggle.setAttribute('aria-expanded', 'false');
-        }
+        syncToggleA11yState();
         syncNavigationA11yState();
       }
     });
   });
 }
 
+syncToggleA11yState();
 syncNavigationA11yState();
 mobileQuery.addEventListener('change', (event) => {
   if (!event.matches && navLinks) {
     navLinks.classList.remove('open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-    }
   }
 
+  syncToggleA11yState();
   syncNavigationA11yState();
 });
