@@ -4,7 +4,10 @@
   --text: #f2f5ff;
   --muted: #b9c3e6;
   --accent: #5f8cff;
+  --accent-strong: #4f7aff;
   --border: #2a3558;
+  --glow: rgba(95, 140, 255, 0.35);
+  --shadow: 0 16px 30px rgba(4, 10, 24, 0.35);
 }
 
 * {
@@ -44,6 +47,7 @@ body {
   color: var(--text);
   text-decoration: none;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .nav-links {
@@ -55,13 +59,34 @@ body {
 }
 
 .nav-links a {
+  position: relative;
   color: var(--muted);
   text-decoration: none;
   font-weight: 500;
+  transition: color 180ms ease;
 }
 
 .nav-links a:hover {
   color: var(--text);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #86a8ff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .nav-links a:focus-visible {
@@ -90,33 +115,108 @@ body {
 }
 
 .hero {
-  padding: 5rem 0 4rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 6.5rem 0 5rem;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.hero::before {
+  width: min(45vw, 480px);
+  height: min(45vw, 480px);
+  right: -12vw;
+  top: 10%;
+  background: radial-gradient(circle, var(--glow) 0%, rgba(95, 140, 255, 0) 72%);
+}
+
+.hero::after {
+  width: min(32vw, 340px);
+  height: min(32vw, 340px);
+  left: -8vw;
+  bottom: 6%;
+  background: radial-gradient(circle, rgba(111, 223, 255, 0.18) 0%, rgba(111, 223, 255, 0) 75%);
+}
+
+.hero-content {
+  max-width: 720px;
 }
 
 .hero-content h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  margin: 0.2rem 0;
+  font-size: clamp(2.4rem, 6vw, 4.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.35rem 0 0.9rem;
 }
 
 .intro {
   color: var(--accent);
   font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin: 0;
+}
+
+.hero-description {
+  max-width: 60ch;
+  color: #d4ddf8;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  margin: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 .btn {
   display: inline-block;
-  margin-top: 1rem;
   padding: 0.75rem 1.2rem;
-  border-radius: 0.6rem;
-  background: var(--accent);
+  border-radius: 0.7rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #fff;
   text-decoration: none;
   font-weight: 600;
+  box-shadow: var(--shadow);
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px rgba(4, 10, 24, 0.42);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #b9c9ff;
+  outline-offset: 3px;
+}
+
+.btn-secondary {
+  background: rgba(95, 140, 255, 0.14);
+  border-color: rgba(127, 163, 255, 0.4);
+  color: #dce6ff;
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(95, 140, 255, 0.22);
+  box-shadow: none;
 }
 
 .section {
-  padding: 2.2rem 0;
+  padding: 2.8rem 0;
 }
 
 .section h2 {
@@ -136,6 +236,14 @@ body {
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1rem;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.chips span:hover,
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(130, 160, 255, 0.55);
+  box-shadow: 0 12px 26px rgba(8, 13, 29, 0.3);
 }
 
 .cards {
@@ -155,8 +263,26 @@ body {
   color: var(--muted);
 }
 
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 480ms ease, transform 480ms ease;
+}
+
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -178,5 +304,9 @@ html {
 
   .nav-links.open {
     display: flex;
+  }
+
+  .hero {
+    padding-top: 5.6rem;
   }
 }

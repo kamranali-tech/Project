@@ -1,8 +1,11 @@
+document.documentElement.classList.add('js');
+
 const toggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const navAnchors = document.querySelectorAll('.nav-links a');
 const year = document.getElementById('year');
 const mobileQuery = window.matchMedia('(max-width: 768px)');
+const revealItems = document.querySelectorAll('[data-reveal]');
 
 const syncToggleA11yState = () => {
   if (!toggle || !navLinks) {
@@ -57,3 +60,22 @@ mobileQuery.addEventListener('change', (event) => {
   syncToggleA11yState();
   syncNavigationA11yState();
 });
+
+if (revealItems.length > 0) {
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+  );
+
+  revealItems.forEach((item, index) => {
+    item.style.transitionDelay = `${Math.min(index * 60, 220)}ms`;
+    revealObserver.observe(item);
+  });
+}
