@@ -283,11 +283,30 @@ html {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
-    transition-duration: 0ms !important;
   }
 
   html {
     scroll-behavior: auto;
+  }
+
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .btn,
+  .chips span,
+  .card {
+    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+  }
+
+  .btn:hover,
+  .chips span:hover,
+  .chips span:focus-within,
+  .card:hover,
+  .card:focus-within {
+    transform: none;
   }
 }
 
