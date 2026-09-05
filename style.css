@@ -298,7 +298,7 @@ html {
   .btn,
   .chips span,
   .card {
-    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+    transition: none;
   }
 
   .btn:hover,
