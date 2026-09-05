@@ -240,7 +240,9 @@ body {
 }
 
 .chips span:hover,
-.card:hover {
+.chips span:focus-within,
+.card:hover,
+.card:focus-within {
   transform: translateY(-2px);
   border-color: rgba(130, 160, 255, 0.55);
   box-shadow: 0 12px 26px rgba(8, 13, 29, 0.3);
