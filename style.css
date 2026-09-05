@@ -281,8 +281,12 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
+    transition-duration: 0ms !important;
+    transition-delay: 0ms !important;
   }
 
   html {
