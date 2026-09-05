@@ -61,7 +61,12 @@ mobileQuery.addEventListener('change', (event) => {
   syncNavigationA11yState();
 });
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 if (revealItems.length > 0) {
+  if (prefersReducedMotion.matches) {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+  } else {
   const revealObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
@@ -78,4 +83,5 @@ if (revealItems.length > 0) {
     item.style.transitionDelay = `${Math.min(index * 60, 220)}ms`;
     revealObserver.observe(item);
   });
+  }
 }

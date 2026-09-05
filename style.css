@@ -283,6 +283,10 @@ html {
     animation: none !important;
     transition-duration: 0ms !important;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @media (max-width: 768px) {
