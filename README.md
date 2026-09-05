@@ -11,7 +11,7 @@ A modern, professional, and responsive personal portfolio website built with HTM
 ## Run Locally
 
 1. Clone/download the project.
-2. Open `/home/runner/work/Project/Project/index.html` in any modern browser.
+2. From the project folder, open `index.html` in any modern browser.
 
 No build step or dependency installation is required.
 

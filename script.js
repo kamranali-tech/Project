@@ -18,7 +18,9 @@ navAnchors.forEach((link) => {
   link.addEventListener('click', () => {
     if (navLinks.classList.contains('open')) {
       navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     }
   });
 });
