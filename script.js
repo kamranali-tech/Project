@@ -81,8 +81,7 @@ if (revealItems.length > 0) {
       { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
     );
 
-    revealItems.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index * 60, 220)}ms`;
+    revealItems.forEach((item) => {
       revealObserver.observe(item);
     });
   }
