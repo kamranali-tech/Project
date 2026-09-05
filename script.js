@@ -40,4 +40,13 @@ if (navLinks) {
 }
 
 syncNavigationA11yState();
-mobileQuery.addEventListener('change', syncNavigationA11yState);
+mobileQuery.addEventListener('change', (event) => {
+  if (!event.matches && navLinks) {
+    navLinks.classList.remove('open');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  syncNavigationA11yState();
+});
