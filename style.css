@@ -64,12 +64,25 @@ body {
   color: var(--text);
 }
 
+.nav-links a:focus-visible {
+  color: var(--text);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
 .menu-toggle {
   display: none;
   font-size: 1.4rem;
   background: none;
   border: none;
   color: var(--text);
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
 }
 
 .hero {
