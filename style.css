@@ -265,13 +265,13 @@ body {
   color: var(--muted);
 }
 
-html.js [data-reveal] {
+html.js.reveal-ready [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 480ms ease, transform 480ms ease;
 }
 
-html.js [data-reveal].is-visible {
+html.js.reveal-ready [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -293,7 +293,7 @@ html {
     scroll-behavior: auto;
   }
 
-  html.js [data-reveal] {
+  html.js.reveal-ready [data-reveal] {
     opacity: 1;
     transform: none;
     transition: none;

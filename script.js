@@ -69,6 +69,8 @@ if (revealItems.length > 0) {
   } else if (!('IntersectionObserver' in window)) {
     revealItems.forEach((item) => item.classList.add('is-visible'));
   } else {
+    document.documentElement.classList.add('reveal-ready');
+
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
