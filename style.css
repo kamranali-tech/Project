@@ -85,6 +85,10 @@ body {
   border-radius: 0.25rem;
 }
 
+.menu-toggle[aria-expanded='true'] {
+  color: var(--accent);
+}
+
 .hero {
   padding: 5rem 0 4rem;
 }
